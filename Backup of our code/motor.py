@@ -20,3 +20,11 @@ while True:
     else:
         motor.throttle = 0.0
     time.sleep(0.1)
+
+#    motor.throttle = 1.0
+#    time.sleep(10)
+#     motor.throttle = 0.5
+#    time.sleep(10)
+#    motor.throttle = 0
+#    time.sleep(1)
+
