@@ -48,7 +48,7 @@ motor_left = servo.ContinuousServo(
     max_pulse=max_pulse
 )
 motor_right = servo.ContinuousServo(
-    pwmio.PWMOut(gizmo.MOTOR_2, frequency=pwm_freq),
+    pwmio.PWMOut(gizmo.MOTOR_3, frequency=pwm_freq),
     min_pulse=min_pulse,
     max_pulse=max_pulse
 )
@@ -77,6 +77,15 @@ prev_start_button = False
 
 # Keep running forever
 while True:
+    for i in range(0, 256):
+        motor_right.throttle = map_range(i, 0, 255, -1.0, 1.0)
+        for j in range(0, 10000):
+            i = i
+        print(i)
+
+    continue
+
+
     # Toggle the built-in LED each time through the loop so we can see
     # that the program really is running.
     builtin_led.value = not builtin_led.value
@@ -114,7 +123,7 @@ while True:
     else:
         motor_task.throttle = 0.0
 
-    # Control task servo with left trigger / shoulder button
+    # Control task servo with right trigger / shoulder button
     if gizmo.buttons.right_trigger:
         print("RT")
         servo_task.angle = 90
