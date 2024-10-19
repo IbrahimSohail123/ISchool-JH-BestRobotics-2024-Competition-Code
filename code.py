@@ -64,10 +64,6 @@ servo_task = servo.Servo(
     max_pulse=max_pulse
 )
 
-# Configure the built-in LED pin as an output
-builtin_led = digitalio.DigitalInOut(board.GP25)
-builtin_led.direction = digitalio.Direction.OUTPUT
-
 TANK_MODE = 0
 ARCADE_MODE = 1
 
@@ -79,7 +75,7 @@ prev_start_button = False
 while True:
     # Toggle the built-in LED each time through the loop so we can see
     # that the program really is running.
-    builtin_led.value = not builtin_led.value
+    #builtin_led.value = not builtin_led.value
 
     # Refreshes the information about axis and button states
     gizmo.refresh()
