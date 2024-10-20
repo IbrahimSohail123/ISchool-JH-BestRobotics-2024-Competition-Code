@@ -74,7 +74,7 @@ servo_task = servo.Servo(
 TANK_MODE = 0
 ARCADE_MODE = 1
 
-mode = TANK_MODE
+mode = ARCADE_MODE
 
 prev_start_button = False
 
@@ -112,7 +112,7 @@ while True:
         motor_left.throttle = constrain(speed - steering, -1.0, 1.0)
         motor_right.throttle = constrain(speed + steering, -1.0, 1.0)
 
-    # Control task servo with left trigger / shoulder button
+    # Control task servo with right trigger / shoulder button
     if gizmo.buttons.right_trigger:
         print("RT")
         servo_task.angle = 90
