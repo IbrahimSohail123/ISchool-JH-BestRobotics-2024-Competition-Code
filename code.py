@@ -25,6 +25,7 @@ When neither the left trigger nor shoulder button are pressed, the servo will
 go to 45 degrees.
 """
 
+import time
 import board
 import pwmio
 import digitalio
@@ -42,7 +43,7 @@ max_pulse = 2000 # milliseconds
 servo_range = 90  # degrees
 
 # Configure the motors & servos for the ports they are connected to
-motor_left = servo.ContinuousServo(
+motor_left= servo.ContinuousServo(
     pwmio.PWMOut(gizmo.MOTOR_4, frequency=pwm_freq),
     min_pulse=min_pulse,
     max_pulse=max_pulse
@@ -52,11 +53,17 @@ motor_right = servo.ContinuousServo(
     min_pulse=min_pulse,
     max_pulse=max_pulse
 )
-motor_task = servo.ContinuousServo(
+motor_arm_base = servo.ContinuousServo(
+    pwmio.PWMOut(gizmo.MOTOR_2, frequency=pwm_freq),
+    min_pulse=min_pulse,
+    max_pulse=max_pulse
+)
+motor_arm_updown = servo.ContinuousServo(
     pwmio.PWMOut(gizmo.MOTOR_1, frequency=pwm_freq),
     min_pulse=min_pulse,
     max_pulse=max_pulse
 )
+
 servo_task = servo.Servo(
     pwmio.PWMOut(gizmo.SERVO_1, frequency=pwm_freq),
     actuation_range=servo_range,
@@ -105,17 +112,39 @@ while True:
         motor_left.throttle = constrain(speed - steering, -1.0, 1.0)
         motor_right.throttle = constrain(speed + steering, -1.0, 1.0)
 
-    # Control task motor with left trigger / shoulder button
-    if gizmo.buttons.left_trigger:
-        motor_task.throttle = 1.0
-    elif gizmo.buttons.left_shoulder:
-        motor_task.throttle = -1.0
-    else:
-        motor_task.throttle = 0.0
-
     # Control task servo with left trigger / shoulder button
     if gizmo.buttons.right_trigger:
         print("RT")
         servo_task.angle = 90
     elif gizmo.buttons.right_shoulder:
         servo_task.angle = 0
+
+    if gizmo.buttons.a:
+        print("A")
+        motor_arm_base.throttle = 1.0
+        time.sleep(0.02)
+        motor_arm_base.throttle = 0.0
+        time.sleep(0.5)
+
+    if gizmo.buttons.b:
+        print("B")
+        motor_arm_base.throttle = -1.0
+        time.sleep(0.02)
+        motor_arm_base.throttle = 0.0
+        time.sleep(0.5)
+
+    if gizmo.buttons.y:
+        print("Y")
+        motor_arm_updown.throttle = 1.0
+        time.sleep(0.04)
+        motor_arm_updown.throttle = 0.0
+        time.sleep(0.5)
+
+    if gizmo.buttons.x:
+        print("X")
+        motor_arm_updown.throttle = -1.0
+        time.sleep(0.04)
+        motor_arm_updown.throttle = 0.0
+        time.sleep(0.5)
+
+
