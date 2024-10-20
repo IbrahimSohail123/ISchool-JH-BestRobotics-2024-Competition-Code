@@ -43,17 +43,17 @@ servo_range = 90  # degrees
 
 # Configure the motors & servos for the ports they are connected to
 motor_left = servo.ContinuousServo(
-    pwmio.PWMOut(gizmo.MOTOR_1, frequency=pwm_freq),
+    pwmio.PWMOut(gizmo.MOTOR_4, frequency=pwm_freq),
     min_pulse=min_pulse,
     max_pulse=max_pulse
 )
 motor_right = servo.ContinuousServo(
-    pwmio.PWMOut(gizmo.MOTOR_2, frequency=pwm_freq),
+    pwmio.PWMOut(gizmo.MOTOR_3, frequency=pwm_freq),
     min_pulse=min_pulse,
     max_pulse=max_pulse
 )
 motor_task = servo.ContinuousServo(
-    pwmio.PWMOut(gizmo.MOTOR_4, frequency=pwm_freq),
+    pwmio.PWMOut(gizmo.MOTOR_1, frequency=pwm_freq),
     min_pulse=min_pulse,
     max_pulse=max_pulse
 )
@@ -88,11 +88,14 @@ while True:
             mode = TANK_MODE
     prev_start_button = gizmo.buttons.start
 
+    # Fix the mode to ARCADE_MODE and ignore the start button
+    mode = ARCADE_MODE
     if mode == ARCADE_MODE:
         # Convert gamepad axis positions (0 - 255) to motor speeds (-1.0 - 1.0)
         motor_left.throttle = map_range(gizmo.axes.left_y, 0, 255, -1.0, 1.0)
-        print(gizmo.axes.left_y)
+        print('Left Y: ' + str(gizmo.axes.left_y))
         motor_right.throttle = map_range(gizmo.axes.right_y, 0, 255, -1.0, 1.0)
+        print('Right Y: ' + str(gizmo.axes.right_y))
     elif mode == TANK_MODE:
         # Mix right joystick axes to control both wheels
         print('Left X: ' + str(gizmo.axes.left_x) + ', Left Y: ' + str(gizmo.axes.left_y))
