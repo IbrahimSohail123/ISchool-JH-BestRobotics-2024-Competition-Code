@@ -43,6 +43,7 @@ max_pulse = 2000 # milliseconds
 servo_range = 90  # degrees
 
 # Configure the motors & servos for the ports they are connected to
+#MOTORS
 motor_left= servo.ContinuousServo(
     pwmio.PWMOut(gizmo.MOTOR_4, frequency=pwm_freq),
     min_pulse=min_pulse,
@@ -64,13 +65,31 @@ motor_arm_updown = servo.ContinuousServo(
     max_pulse=max_pulse
 )
 
+#SERVOS
 servo_task = servo.Servo(
     pwmio.PWMOut(gizmo.SERVO_1, frequency=pwm_freq),
     actuation_range=servo_range,
     min_pulse=min_pulse,
     max_pulse=max_pulse
 )
-
+servo_2 = servo.Servo(
+    pwmio.PWMOut(gizmo.SERVO_2, frequency=pwm_freq),
+    actuation_range=servo_range,
+    min_pulse=min_pulse,
+    max_pulse=max_pulse
+)
+servo_3 = servo.Servo(
+    pwmio.PWMOut(gizmo.SERVO_3, frequency=pwm_freq),
+    actuation_range=servo_range,
+    min_pulse=min_pulse,
+    max_pulse=max_pulse
+)
+servo_4 = servo.Servo(
+    pwmio.PWMOut(gizmo.SERVO_4, frequency=pwm_freq),
+    actuation_range=servo_range,
+    min_pulse=min_pulse,
+    max_pulse=max_pulse
+)
 TANK_MODE = 0
 ARCADE_MODE = 1
 
@@ -118,6 +137,12 @@ while True:
         servo_task.angle = 90
     elif gizmo.buttons.right_shoulder:
         servo_task.angle = 0
+
+    # Control _ with left trigger / shoulder button
+    #if gizmo.buttons.right_trigger:
+    #    print("LT")
+    #elif gizmo.buttons.right_shoulder:
+    #
 
     if gizmo.buttons.a:
         print("A")
