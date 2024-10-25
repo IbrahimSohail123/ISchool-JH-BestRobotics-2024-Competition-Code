@@ -114,10 +114,10 @@ while True:
         motor_right.throttle = constrain(speed + steering, -1.0, 1.0)
 
     # Control task servo with right trigger / shoulder button
-    if gizmo.buttons.right_trigger:
-        print("RT")
+    if gizmo.buttons.left_trigger:
+        print("LT")
         servo_box_stacker.angle = 90
-    elif gizmo.buttons.right_shoulder:
+    elif gizmo.buttons.left_shoulder:
         servo_box_stacker.angle = 0
 
     # Control _ with left trigger / shoulder button
