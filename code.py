@@ -66,26 +66,8 @@ motor_arm_updown = servo.ContinuousServo(
 )
 
 #SERVOS
-servo_task = servo.Servo(
+servo_box_stacker = servo.Servo(
     pwmio.PWMOut(gizmo.SERVO_1, frequency=pwm_freq),
-    actuation_range=servo_range,
-    min_pulse=min_pulse,
-    max_pulse=max_pulse
-)
-servo_2 = servo.Servo(
-    pwmio.PWMOut(gizmo.SERVO_2, frequency=pwm_freq),
-    actuation_range=servo_range,
-    min_pulse=min_pulse,
-    max_pulse=max_pulse
-)
-servo_3 = servo.Servo(
-    pwmio.PWMOut(gizmo.SERVO_3, frequency=pwm_freq),
-    actuation_range=servo_range,
-    min_pulse=min_pulse,
-    max_pulse=max_pulse
-)
-servo_4 = servo.Servo(
-    pwmio.PWMOut(gizmo.SERVO_4, frequency=pwm_freq),
     actuation_range=servo_range,
     min_pulse=min_pulse,
     max_pulse=max_pulse
@@ -134,9 +116,9 @@ while True:
     # Control task servo with right trigger / shoulder button
     if gizmo.buttons.right_trigger:
         print("RT")
-        servo_task.angle = 90
+        servo_box_stacker.angle = 90
     elif gizmo.buttons.right_shoulder:
-        servo_task.angle = 0
+        servo_box_stacker.angle = 0
 
     # Control _ with left trigger / shoulder button
     #if gizmo.buttons.right_trigger:
