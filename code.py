@@ -77,16 +77,24 @@ while True:
     #ARM ROTATE
     if gizmo.buttons.x:
         print("A: %s" % gizmo.buttons.x)
-        motor1.throttle = 1.0
-        time.sleep(0.05)
-        motor1.throttle = 0.0
-        time.sleep(0.1)
+
+        for speed in range(0, 1, 0.1):
+            motor1.throttle = speed
+
+    #   motor1.throttle = 1.0
+    #   time.sleep(0.05)
+    #   motor1.throttle = 0.0
+    #   time.sleep(0.1)
     elif gizmo.buttons.b:
         print("B: %s" % gizmo.buttons.y)
-        motor1.throttle = -1.0
-        time.sleep(0.05)
-        motor1.throttle = 0.0
-        time.sleep(0.1)
+
+        for speed in range(0, -1, -0.1):
+            motor1.throttle = speed
+
+    #    motor1.throttle = -1.0
+    #    time.sleep(0.05)
+    #    motor1.throttle = 0.0
+    #    time.sleep(0.1)
     else:
         motor1.throttle = 0.0
 
@@ -96,7 +104,7 @@ while True:
     if gizmo.buttons.left_trigger:
         print("left_trigger: %s" % gizmo.buttons.left_trigger)
         #servo1.angle = 0
-        
+
         for angle in range(120, 0, -5): # 180 - 0 degrees, 5 degrees at a time.
             servo1.angle = angle
             time.sleep(0.05)
