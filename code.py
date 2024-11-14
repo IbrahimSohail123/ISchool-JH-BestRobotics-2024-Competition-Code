@@ -53,6 +53,16 @@ motor4 = adafruit_motor.servo.ContinuousServo(
     max_pulse=2000
 )
 
+def motor_throttle(joystick_value):
+    if (joystick_value <= 100):
+        throttle = 0.25
+    elif (joystick_value <= 200):
+        throttle = 0.5
+    else:
+        throttle = 1.0
+
+    return throttle
+
 ####################################################################
 #Starting Position - Pez Dispenser
 servo1.angle = 120
@@ -61,8 +71,10 @@ servo1.angle = 120
 while True:
     gizmo.refresh()
     #JOYSTICKS
-    motor3.throttle = map_range(gizmo.axes.left_y, 0, 255, -1.0, 1.0)
-    motor4.throttle = map_range(gizmo.axes.right_y, 0, 255, -1.0, 1.0)
+    motor3.throttle = motor_throttle(gizmo.axes.left_y)
+    motor4.throttle = motor_throttle(gizmo.axes.right_y)
+    # motor3.throttle = map_range(gizmo.axes.left_y, 0, 255, -1.0, 1.0)
+    # motor4.throttle = map_range(gizmo.axes.right_y, 0, 255, -1.0, 1.0)
 
     #ARM UP / DOWN
     if gizmo.buttons.y:
@@ -78,8 +90,8 @@ while True:
     if gizmo.buttons.x:
         print("A: %s" % gizmo.buttons.x)
 
-        for speed in range(0, 1, 0.1):
-            motor1.throttle = speed
+        for speed in range(0, 25, 5):
+            motor1.throttle = speed/100.0
 
     #   motor1.throttle = 1.0
     #   time.sleep(0.05)
@@ -88,8 +100,8 @@ while True:
     elif gizmo.buttons.b:
         print("B: %s" % gizmo.buttons.y)
 
-        for speed in range(0, -1, -0.1):
-            motor1.throttle = speed
+        for speed in range(0, -25, -5):
+            motor1.throttle = speed/100.0
 
     #    motor1.throttle = -1.0
     #    time.sleep(0.05)
