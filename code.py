@@ -54,12 +54,16 @@ motor4 = adafruit_motor.servo.ContinuousServo(
 )
 
 def motor_throttle(joystick_value):
-    if (joystick_value <= 100):
+    if(joystick_value == 127):
+       throttle = 0
+    elif(joystick_value < 127 and joystick_value > 63):
+        throttle = -0.25
+    elif(joystick_value <= 63):
+        throttle = - 0.5;
+    elif (joystick_value < 190 and joystick_value > 127 ):
         throttle = 0.25
-    elif (joystick_value <= 200):
+    elif (joystick_value <= 255):
         throttle = 0.5
-    else:
-        throttle = 1.0
 
     return throttle
 
@@ -71,6 +75,7 @@ servo1.angle = 120
 while True:
     gizmo.refresh()
     #JOYSTICKS
+    print(f"motor 3 or lefty is {gizmo.axes.left_y}")
     motor3.throttle = motor_throttle(gizmo.axes.left_y)
     motor4.throttle = motor_throttle(gizmo.axes.right_y)
     # motor3.throttle = map_range(gizmo.axes.left_y, 0, 255, -1.0, 1.0)
